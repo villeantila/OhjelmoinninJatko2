@@ -240,9 +240,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Oma\ProjektitVanha.cshtml" />
+    <Content Include="Views\Oma\HenkilotVanha.cshtml" />
+    <Content Include="Views\Oma\TunnitVanha.cshtml" />
     <Content Include="Views\Oma\Projektit.cshtml" />
-    <Content Include="Views\Oma\Henkilot.cshtml" />
-    <Content Include="Views\Oma\Tunnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

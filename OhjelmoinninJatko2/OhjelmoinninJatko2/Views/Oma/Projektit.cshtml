@@ -1,31 +1,41 @@
-﻿@model IEnumerable<OhjelmoinninJatko2.Models.Projektit>
-
-
+﻿
 @{
     ViewBag.Title = "Projektit";
 }
 
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $.getJSON("/Oma/getlist", null, function (json) {
+                var projektit = JSON.parse(json);
+                alert("Projektien lukumäärä: " + projektit.length);
+
+                var html = "";
+                for (var i = 0; i < projektit.length; i++) {
+                    html += "<tr>" +
+                    "<td>" + projektit[i].ProjektiId + "</td>" +
+                    "<td>" + projektit[i].Identity + "</td>" +
+                    "<td>" + projektit[i].Nimi + "</td>" +
+                    "</tr>\r\n";
+                }
+                $("#projektitList tbody").html(html);
+            });
+        });
+    </script>
+    }
+
 <h2>Projektit</h2>
 
-<!--<p>Testitietoa kontrollerista: @ViewBag.TestiTieto</p>
-    -->
-<table class="table table-striped">
+<table class="table table-striped" id="projektitList">
     <thead>
         <tr>
-            <th>ProjektiId</th>
+            <th>Projekti-Id</th>
             <th>Identity</th>
             <th>Nimi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (OhjelmoinninJatko2.Models.Projektit proj in Model)
-        {
-            <tr>
-                <td>@proj.ProjektiId</td>
-                <td>@proj.Identity</td>
-                <td>@proj.Nimi</td>
-            </tr>
-        }
+     
     </tbody>
 
 </table>

@@ -1,4 +1,5 @@
-﻿using OhjelmoinninJatko2.Models;
+﻿using Newtonsoft.Json;
+using OhjelmoinninJatko2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace OhjelmoinninJatko2.Controllers
     public class OmaController : Controller
     {
         // GET: Oma
-        public ActionResult Projektit()
+        public ActionResult ProjektitVanha()
         {
             //ViewBag.TestiTieto = "Testiä";
             OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
@@ -18,19 +19,43 @@ namespace OhjelmoinninJatko2.Controllers
             entities.Dispose();
             return View(model);
         }
-        public ActionResult Henkilot()
+        public ActionResult HenkilotVanha()
         {
             OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
             List<Henkilot> model = entities.Henkilot.ToList();
             entities.Dispose();
             return View(model);
         }
-                public ActionResult Tunnit()
+        public ActionResult TunnitVanha()
         {
             OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
             List<Tunnit> model = entities.Tunnit.ToList();
             entities.Dispose();
             return View(model);
+        }
+
+        public ActionResult Projektit()
+        {
+           
+            return View();
+        }
+
+        public JsonResult GetList()
+        {
+            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            //List<Projektit> model = entities.Projektit.ToList();
+
+            var model = (from c in entities.Projektit
+                         select new
+                         {
+                             ProjektiId = c.ProjektiId,
+                             Identity = c.Identity,
+                             Nimi = c.Nimi
+                         }).ToList();
+            string json = JsonConvert.SerializeObject(model);
+            entities.Dispose();
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OhjelmoinninJatko2.Models.Projektit>
+
+
+@{
+    ViewBag.Title = "Projektit";
+}
+
+<h2>Projektit</h2>
+
+<!--<p>Testitietoa kontrollerista: @ViewBag.TestiTieto</p>
+    -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ProjektiId</th>
+            <th>Identity</th>
+            <th>Nimi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OhjelmoinninJatko2.Models.Projektit proj in Model)
+        {
+            <tr>
+                <td>@proj.ProjektiId</td>
+                <td>@proj.Identity</td>
+                <td>@proj.Nimi</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
