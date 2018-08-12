@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OhjelmoinninJatko2.Models.Tunnit>
+
+
+@{
+    ViewBag.Title = "Tunnit";
+}
+
+<h2>Tunnit</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>TuntiId</th>
+            <th>Identity</th>
+            <th>ProjektiId</th>
+            <th>HenkiloId</th>
+            <th>Pvm</th>
+            <th>Tunnit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OhjelmoinninJatko2.Models.Tunnit tunn in Model)
+        {
+        <tr>
+            <td>@tunn.TuntiId</td>
+            <td>@tunn.Identity</td>
+            <td>@tunn.ProjektiId</td>
+            <td>@tunn.HenkiloId</td>
+            <td>@tunn.Pvm</td>
+            <td>@tunn.Tunnit1</td>
+        </tr>
+        }
+    </tbody>
+
+</table>

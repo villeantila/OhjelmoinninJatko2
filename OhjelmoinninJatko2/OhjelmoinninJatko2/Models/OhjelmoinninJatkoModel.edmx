@@ -75,7 +75,7 @@
           <Property Name="Pvm" Type="DateTime" Precision="3" />
           <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" />
         </EntityType>
-        <EntityContainer Name="OhjelmoinninJatkoEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OhjelmoinninJatkoEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" />
@@ -85,7 +85,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OhjelmoinninJatkoModelStoreContainer" CdmEntityContainer="OhjelmoinninJatkoEntities1">
+        <EntityContainerMapping StorageEntityContainer="OhjelmoinninJatkoModelStoreContainer" CdmEntityContainer="OhjelmoinninJatkoEntities2">
           <EntitySetMapping Name="Henkilot">
             <EntityTypeMapping TypeName="OhjelmoinninJatkoModel.Henkilot">
               <MappingFragment StoreEntitySet="Henkilot">

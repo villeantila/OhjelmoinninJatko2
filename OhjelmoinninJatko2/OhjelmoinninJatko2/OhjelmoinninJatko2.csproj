@@ -161,28 +161,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Henkilot.cs">
-      <DependentUpon>OhjelmoinninJatko.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OhjelmoinninJatko.Context.cs">
+    <Compile Include="Models\OhjelmoinninJatkoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OhjelmoinninJatko.Context.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OhjelmoinninJatko.cs">
+    <Compile Include="Models\OhjelmoinninJatkoModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OhjelmoinninJatko.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OhjelmoinninJatko.Designer.cs">
+    <Compile Include="Models\OhjelmoinninJatkoModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OhjelmoinninJatko.edmx</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Projektit.cs">
-      <DependentUpon>OhjelmoinninJatko.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tunnit.cs">
-      <DependentUpon>OhjelmoinninJatko.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,27 +195,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\OhjelmoinninJatko.Context.tt">
+    <Content Include="Models\OhjelmoinninJatkoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OhjelmoinninJatko.edmx</DependentUpon>
-      <LastGenOutput>OhjelmoinninJatko.Context.cs</LastGenOutput>
+      <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
+      <LastGenOutput>OhjelmoinninJatkoModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\OhjelmoinninJatko.tt">
+    <Content Include="Models\OhjelmoinninJatkoModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OhjelmoinninJatko.edmx</DependentUpon>
-      <LastGenOutput>OhjelmoinninJatko.cs</LastGenOutput>
+      <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
+      <LastGenOutput>OhjelmoinninJatkoModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\OhjelmoinninJatko.edmx">
+    <EntityDeploy Include="Models\OhjelmoinninJatkoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OhjelmoinninJatko.Designer.cs</LastGenOutput>
+      <LastGenOutput>OhjelmoinninJatkoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\OhjelmoinninJatko.edmx.diagram">
-      <DependentUpon>OhjelmoinninJatko.edmx</DependentUpon>
+    <Content Include="Models\OhjelmoinninJatkoModel.edmx.diagram">
+      <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -239,10 +239,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Oma\Index.cshtml" />
+    <Content Include="Views\Oma\Projektit.cshtml" />
+    <Content Include="Views\Oma\Henkilot.cshtml" />
+    <Content Include="Views\Oma\Tunnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

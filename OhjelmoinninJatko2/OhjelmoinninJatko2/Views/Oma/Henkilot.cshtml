@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OhjelmoinninJatko2.Models.Henkilot>
+
+
+@{
+    ViewBag.Title = "Henkilot";
+}
+
+<h2>Henkilöt</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>HenkiloId</th>
+            <th>Identity</th>
+            <th>Etunimi</th>
+            <th>Sukunimi</th>
+            <th>Osoite</th>
+            <th>Esimies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OhjelmoinninJatko2.Models.Henkilot henk in Model)
+        {
+        <tr>
+            <td>@henk.HenkiloId</td>
+            <td>@henk.Identity</td>
+            <td>@henk.Etunimi</td>
+            <td>@henk.Sukunimi</td>
+            <td>@henk.Osoite</td>
+            <td>@henk.Esimies</td>
+        </tr>
+        }
+    </tbody>
+
+</table>
