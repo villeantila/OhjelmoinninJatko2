@@ -11,33 +11,33 @@ namespace OhjelmoinninJatko2.Controllers
     public class OmaController : Controller
     {
         // GET: Oma
-        public ActionResult ProjektitVanha()
-        {
-            //ViewBag.TestiTieto = "Testiä";
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-            List<Projektit> model = entities.Projektit.ToList();
-            entities.Dispose();
-            return View(model);
-        }
-        public ActionResult HenkilotVanha()
-        {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-            List<Henkilot> model = entities.Henkilot.ToList();
-            entities.Dispose();
-            return View(model);
-        }
-        public ActionResult TunnitVanha()
-        {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-            List<Tunnit> model = entities.Tunnit.ToList();
-            entities.Dispose();
-            return View(model);
-        }
+        //public ActionResult ProjektitVanha()
+        //{
+        //    //ViewBag.TestiTieto = "Testiä";
+        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+        //    List<Projektit> model = entities.Projektit.ToList();
+        //    entities.Dispose();
+        //    return View(model);
+        //}
+        //public ActionResult HenkilotVanha()
+        //{
+        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+        //    List<Henkilot> model = entities.Henkilot.ToList();
+        //    entities.Dispose();
+        //    return View(model);
+        //}
+        //public ActionResult TunnitVanha()
+        //{
+        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+        //    List<Tunnit> model = entities.Tunnit.ToList();
+        //    entities.Dispose();
+        //    return View(model);
+        //}
 
-        public ActionResult ProjektitVanha2()
-        {
-           return View();
-        }
+        //public ActionResult ProjektitVanha2()
+        //{
+        //   return View();
+        //}
 
         public ActionResult Projektit()
         {
@@ -61,6 +61,7 @@ namespace OhjelmoinninJatko2.Controllers
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetSingleProjekti(int id) //vai pitääkö olla string??
         {
             OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
@@ -90,14 +91,14 @@ namespace OhjelmoinninJatko2.Controllers
             // onko kyseessä muokkaus vai uuden lisääminen?
             if (id == 0)
             {
-                // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
+                // kyseessä on uuden projektin lisääminen, kopioidaan kentät
                 Projektit dbItem = new Projektit()
                 {
                     Identity = proj.Identity,
                     Nimi = proj.Nimi
                 };
 
-                // tallennus tietokantaan
+                // tallennus tietokantaan, Projekti-Id muodostuu automaattisesti
                 entities.Projektit.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
@@ -122,8 +123,30 @@ namespace OhjelmoinninJatko2.Controllers
 
             entities.Dispose();
 
-            return Json(OK);
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }  
+        
+        public ActionResult Delete(int id)
+        {
+            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
 
-        }       
+            bool OK = false;
+
+            Projektit dbItem = (from c in entities.Projektit
+                                where c.ProjektiId == id
+                                select c).FirstOrDefault();
+
+            if (dbItem != null)
+            {
+                // poisto tietokannasta
+                entities.Projektit.Remove(dbItem);
+                entities.SaveChanges();
+                OK = true;
+            }
+
+            entities.Dispose();
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
     }
 }

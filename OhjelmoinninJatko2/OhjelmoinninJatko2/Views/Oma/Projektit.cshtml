@@ -15,6 +15,7 @@
                         "<td>" + projektit[i].ProjektiId + "</td>" +
                         "<td>" + projektit[i].Identity + "</td>" +
                         "<td>" + projektit[i].Nimi + "</td>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" +
                         "</tr>\r\n";
                 }
 
@@ -24,8 +25,7 @@
                 $(".glyphicon-pencil").click(function () {
                     // etsitään asiakkaan tiedot klikatulta riviltä
                     var ProjektiId = $(this).parent().parent().next().text();
-                    //alert(customerId);
-
+                   
                     // haetaan asiakkaan tiedot id:n perusteella
                     $.getJSON("/Oma/getsingleprojekti/" + ProjektiId, null, function (json2) {
                         var projekti = JSON.parse(json2);
@@ -38,15 +38,34 @@
                         // näytetään ikkuna
                         $("#projektiModalTitle").text("Muokkaa projektia");
                         $("#projektiModalDialog").modal("show");
-
                     });
                 });
+
+                // tietojen poistaminen
+                $(".glyphicon-trash").click(function () {
+                    var ProjektiId = $(this).parent().parent().prev().prev().prev().text();
+                    var ok = confirm("Haluatko varmasti poistaa projektin " + ProjektiId + "?");
+
+                    if (ok == true) {
+                        $.getJSON("/Oma/delete/" + ProjektiId, null, function (status) {
+                            if (status == true) {
+                                alert("Projekti on poistettu.");
+                                päivitäListaus();
+                            }
+                            else {
+                                alert("Poisto ei onnistunut, yritä uudelleen!");
+                            }
+                        });
+                    }
+                });
+
             });
         }
+
         // sivun alustaminen
         $(function () {
             päivitäListaus();
-     
+
             $("#addNewProjektiButton").click(function () {
 
                 // tyhjennetään ikkunan tiedot
@@ -58,7 +77,7 @@
                 $("#projektiModalDialog").modal("show");
             });
 
-            $("#projektiModalSaveButton").click(function () {
+            $("#ProjektiModalSaveButton").click(function () {
                 // luetaan käyttäjän syöttämät kentät
                 var details = {
                     ProjektiId: $("#projektiModal_ProjektiId").val(),
@@ -92,6 +111,7 @@
             <th>Projekti-Id</th>
             <th>Identity</th>
             <th>Nimi</th>
+            <th></th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -120,7 +140,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                <button type="button" class="btn btn-primary" id="projektiModalSaveButton">Tallenna</button>
+                <button type="button" class="btn btn-primary" id="ProjektiModalSaveButton">Tallenna</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
