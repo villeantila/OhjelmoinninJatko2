@@ -5,37 +5,110 @@
 
 @section scripts {
     <script type="text/javascript">
-        $(function () {
+        function päivitäListaus() {
             $.getJSON("/Oma/getlist", null, function (json) {
                 var projektit = JSON.parse(json);
-                alert("Projektien lukumäärä: " + projektit.length);
-
                 var html = "";
                 for (var i = 0; i < projektit.length; i++) {
                     html += "<tr>" +
-                    "<td>" + projektit[i].ProjektiId + "</td>" +
-                    "<td>" + projektit[i].Identity + "</td>" +
-                    "<td>" + projektit[i].Nimi + "</td>" +
-                    "</tr>\r\n";
+                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                        "<td>" + projektit[i].ProjektiId + "</td>" +
+                        "<td>" + projektit[i].Identity + "</td>" +
+                        "<td>" + projektit[i].Nimi + "</td>" +
+                        "</tr>\r\n";
                 }
+
                 $("#projektitList tbody").html(html);
+
+                // tietojen muokkaus
+                $(".glyphicon-pencil").click(function () {
+                    // etsitään asiakkaan tiedot klikatulta riviltä
+                    var ProjektiId = $(this).parent().parent().next().text();
+                    //alert(customerId);
+
+                    // haetaan asiakkaan tiedot id:n perusteella
+                    $.getJSON("/Oma/getsingleprojekti/" + ProjektiId, null, function (json2) {
+                        var projekti = JSON.parse(json2);
+
+                        // kopioidaan tiedot ikkunaan
+                        $("#projektiModal_ProjektiId").val(projekti.ProjektiId);
+                        $("#projektiModal_Identity").val(projekti.Identity);
+                        $("#projektiModal_Nimi").val(projekti.Nimi);
+
+                        // näytetään ikkuna
+                        $("#projektiModalTitle").text("Muokkaa projektia");
+                        $("#projektiModalDialog").modal("show");
+
+                        $("#projektiModalSaveButton").click(function () {
+                            // luetaan käyttäjän syöttämät kentät
+                            var details = {
+                                ProjektiId: $("#projektiModal_ProjektiId").val(),
+                                Identity: $("#projektiModal_Identity").val(),
+                                Nimi: $("#projektiModal_Nimi").val()
+                            };
+
+                            $.post("/oma/update/", details, function (status) {
+                                if (status == true) {
+                                    alert("Uudet tiedot tallennettu!");
+                                    $("#projektiModalDialog").modal("hide");
+                                    päivitäListaus();
+                                }
+                                else {
+                                    alert("Tallennus ei onnistunut, yritä uudelleen!");
+                                }
+                            });
+                        });
+                    });
+                });
             });
+        }
+
+        $(function () {
+            päivitäListaus();
         });
     </script>
-    }
+}
 
 <h2>Projektit</h2>
 
 <table class="table table-striped" id="projektitList">
     <thead>
         <tr>
+            <th></th>
             <th>Projekti-Id</th>
             <th>Identity</th>
             <th>Nimi</th>
         </tr>
     </thead>
-    <tbody>
-     
-    </tbody>
+    <tbody></tbody>
 
 </table>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="projektiModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="projektiModalTitle">Muokkaa projektia</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">Projekti-id</div>
+                    <div class="col-md-6"><input class="form-control" id="projektiModal_ProjektiId" type="text" readonly></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Identity</div>
+                    <div class="col-md-6"><input class="form-control" id="projektiModal_Identity" type="text"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Nimi</div>
+                    <div class="col-md-6"><input class="form-control" id="projektiModal_Nimi" type="text"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="projektiModalSaveButton">Tallenna</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

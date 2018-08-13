@@ -34,9 +34,15 @@ namespace OhjelmoinninJatko2.Controllers
             return View(model);
         }
 
-        public ActionResult Projektit()
+        public ActionResult ProjektitVanha2()
         {
            
+            return View();
+        }
+
+        public ActionResult Projektit()
+        {
+
             return View();
         }
 
@@ -52,10 +58,56 @@ namespace OhjelmoinninJatko2.Controllers
                              Identity = c.Identity,
                              Nimi = c.Nimi
                          }).ToList();
+
             string json = JsonConvert.SerializeObject(model);
             entities.Dispose();
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetSingleProjekti(int id) //vai pitääkö olla string??
+        {
+            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+           
+            var model = (from c in entities.Projektit
+                         where c.ProjektiId == id
+                         select new
+                         {
+                             ProjektiId = c.ProjektiId,
+                             Identity = c.Identity,
+                             Nimi = c.Nimi
+                         }).FirstOrDefault();
+
+            string json = JsonConvert.SerializeObject(model);
+            entities.Dispose();
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Update(Projektit proj)
+        {
+            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            int id = proj.ProjektiId;
+
+            bool OK = false;
+            
+            Projektit dbItem = (from c in entities.Projektit
+                                where c.ProjektiId == id
+                                select c).FirstOrDefault();
+            if (dbItem != null)
+            {
+                dbItem.Identity = proj.Identity;
+                dbItem.Nimi = proj.Nimi;
+
+                // tallennus tietokantaan
+                entities.SaveChanges();
+                OK = true;
+            }
+
+            entities.Dispose();
+
+            return Json(OK);
+        }
+           
     }
+    
 }
