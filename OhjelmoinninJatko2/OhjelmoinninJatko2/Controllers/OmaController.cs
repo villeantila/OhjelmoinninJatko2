@@ -36,21 +36,18 @@ namespace OhjelmoinninJatko2.Controllers
 
         public ActionResult ProjektitVanha2()
         {
-           
-            return View();
+           return View();
         }
 
         public ActionResult Projektit()
         {
-
             return View();
         }
 
         public JsonResult GetList()
         {
             OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-            //List<Projektit> model = entities.Projektit.ToList();
-
+            
             var model = (from c in entities.Projektit
                          select new
                          {
@@ -89,25 +86,44 @@ namespace OhjelmoinninJatko2.Controllers
             int id = proj.ProjektiId;
 
             bool OK = false;
-            
-            Projektit dbItem = (from c in entities.Projektit
-                                where c.ProjektiId == id
-                                select c).FirstOrDefault();
-            if (dbItem != null)
+
+            // onko kyseessä muokkaus vai uuden lisääminen?
+            if (id == 0)
             {
-                dbItem.Identity = proj.Identity;
-                dbItem.Nimi = proj.Nimi;
+                // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
+                Projektit dbItem = new Projektit()
+                {
+                    Identity = proj.Identity,
+                    Nimi = proj.Nimi
+                };
 
                 // tallennus tietokantaan
+                entities.Projektit.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
+            }
+
+            else
+            {
+                // muokkaus, haetaan id:n perusteella riviä tietokannasta
+                Projektit dbItem = (from c in entities.Projektit
+                                    where c.ProjektiId == id
+                                    select c).FirstOrDefault();
+                if (dbItem != null)
+                {
+                    dbItem.Identity = proj.Identity;
+                    dbItem.Nimi = proj.Nimi;
+
+                    // tallennus tietokantaan
+                    entities.SaveChanges();
+                    OK = true;
+                }
             }
 
             entities.Dispose();
 
             return Json(OK);
-        }
-           
+
+        }       
     }
-    
 }

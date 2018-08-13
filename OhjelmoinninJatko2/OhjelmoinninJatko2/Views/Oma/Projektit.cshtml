@@ -39,37 +39,51 @@
                         $("#projektiModalTitle").text("Muokkaa projektia");
                         $("#projektiModalDialog").modal("show");
 
-                        $("#projektiModalSaveButton").click(function () {
-                            // luetaan käyttäjän syöttämät kentät
-                            var details = {
-                                ProjektiId: $("#projektiModal_ProjektiId").val(),
-                                Identity: $("#projektiModal_Identity").val(),
-                                Nimi: $("#projektiModal_Nimi").val()
-                            };
-
-                            $.post("/oma/update/", details, function (status) {
-                                if (status == true) {
-                                    alert("Uudet tiedot tallennettu!");
-                                    $("#projektiModalDialog").modal("hide");
-                                    päivitäListaus();
-                                }
-                                else {
-                                    alert("Tallennus ei onnistunut, yritä uudelleen!");
-                                }
-                            });
-                        });
                     });
                 });
             });
         }
-
+        // sivun alustaminen
         $(function () {
             päivitäListaus();
+     
+            $("#addNewProjektiButton").click(function () {
+
+                // tyhjennetään ikkunan tiedot
+                $("#projektiModal_ProjektiId").val("0");
+                $("#projektiModal_Identity").val("");
+                $("#projektiModal_Nimi").val("");
+
+                $("#projektiModalTitle").text("Lisää uusi projekti");
+                $("#projektiModalDialog").modal("show");
+            });
+
+            $("#projektiModalSaveButton").click(function () {
+                // luetaan käyttäjän syöttämät kentät
+                var details = {
+                    ProjektiId: $("#projektiModal_ProjektiId").val(),
+                    Identity: $("#projektiModal_Identity").val(),
+                    Nimi: $("#projektiModal_Nimi").val()
+                };
+
+                $.post("/oma/update/", details, function (status) {
+                    if (status == true) {
+                        alert("Uudet tiedot tallennettu!");
+                        $("#projektiModalDialog").modal("hide");
+                        päivitäListaus();
+                    }
+                    else {
+                        alert("Tallennus ei onnistunut, yritä uudelleen!");
+                    }
+                });
+            });
         });
     </script>
 }
 
 <h2>Projektit</h2>
+
+<button class="btn btn-primary" id="addNewProjektiButton">Lisää uusi</button>
 
 <table class="table table-striped" id="projektitList">
     <thead>
@@ -81,7 +95,6 @@
         </tr>
     </thead>
     <tbody></tbody>
-
 </table>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="projektiModalDialog">
