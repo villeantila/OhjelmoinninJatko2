@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Projektit";
 }
 
@@ -25,7 +24,7 @@
                 $(".glyphicon-pencil").click(function () {
                     // etsitään asiakkaan tiedot klikatulta riviltä
                     var ProjektiId = $(this).parent().parent().next().text();
-                   
+
                     // haetaan asiakkaan tiedot id:n perusteella
                     $.getJSON("/Oma/getsingleprojekti/" + ProjektiId, null, function (json2) {
                         var projekti = JSON.parse(json2);
@@ -58,7 +57,6 @@
                         });
                     }
                 });
-
             });
         }
 
