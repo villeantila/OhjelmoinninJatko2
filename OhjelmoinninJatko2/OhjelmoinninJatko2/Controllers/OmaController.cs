@@ -298,7 +298,7 @@ namespace OhjelmoinninJatko2.Controllers
             OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
 
             var model = (from c in entities.Tunnit
-                         where c.HenkiloId == id
+                         where c.TuntiId == id
                          select new
                          {
                              TuntiId = c.TuntiId,
