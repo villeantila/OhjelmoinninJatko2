@@ -11,7 +11,7 @@
                 for (var i = 0; i < henkilot.length; i++) {
                     html += "<tr>" +
                         "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
-                        "<td>" + henkilot[i].henkiloId + "</td>" +
+                        "<td>" + henkilot[i].HenkiloId + "</td>" +
                         "<td>" + henkilot[i].Identity + "</td>" +
                         "<td>" + henkilot[i].Etunimi + "</td>" +
                         "<td>" + henkilot[i].Sukunimi + "</td>" +
@@ -33,7 +33,7 @@
                         var henkilo = JSON.parse(json2);
 
                         // kopioidaan tiedot ikkunaan
-                        $("#henkiloModal_henkiloId").val(henkilo.henkiloId);
+                        $("#henkiloModal_HenkiloId").val(henkilo.HenkiloId);
                         $("#henkiloModal_Identity").val(henkilo.Identity);
                         $("#henkiloModal_Etunimi").val(henkilo.Etunimi);
                         $("#henkiloModal_Sukunimi").val(henkilo.Sukunimi);
@@ -41,7 +41,7 @@
                         $("#henkiloModal_Esimies").val(henkilo.Esimies);
 
                         // näytetään ikkuna
-                        $("#henkiloModalTitle").text("Muokkaa henkiloa");
+                        $("#henkiloModalTitle").text("Muokkaa henkilöä");
                         $("#henkiloModalDialog").modal("show");
                     });
                 });
@@ -73,7 +73,7 @@
             $("#addNewhenkiloButton").click(function () {
 
                 // tyhjennetään ikkunan tiedot
-                $("#henkiloModal_henkiloId").val("0");
+                $("#henkiloModal_HenkiloId").val("0");
                 $("#henkiloModal_Identity").val("");
                 $("#henkiloModal_Etunimi").val("");
                 $("#henkiloModal_Sukunimi").val("");
@@ -87,7 +87,7 @@
             $("#henkiloModalSaveButton").click(function () {
                 // luetaan käyttäjän syöttämät kentät
                 var details = {
-                    henkiloId: $("#henkiloModal_henkiloId").val(),
+                    henkiloId: $("#henkiloModal_HenkiloId").val(),
                     Identity: $("#henkiloModal_Identity").val(),
                     Etunimi: $("#henkiloModal_Etunimi").val(),
                     Sukunimi: $("#henkiloModal_Sukunimi").val(),
@@ -140,7 +140,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-3">Henkilö-id</div>
-                    <div class="col-md-6"><input class="form-control" id="henkiloModal_henkiloId" type="text" readonly></div>
+                    <div class="col-md-6"><input class="form-control" id="henkiloModal_HenkiloId" type="text" readonly></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">Identity</div>

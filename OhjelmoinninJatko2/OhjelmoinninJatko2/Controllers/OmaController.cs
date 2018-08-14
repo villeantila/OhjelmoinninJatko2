@@ -251,12 +251,15 @@ namespace OhjelmoinninJatko2.Controllers
         }
 
 
-        public ActionResult henkilotvanha()
-        {
-            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
-            List<Henkilot> model = entities.Henkilot.ToList();
-            entities.Dispose();
-            return View(model);
-        }
+        //public ActionResult henkilotvanha()
+        //{
+        //    OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
+        //    List<Henkilot> model = entities.Henkilot.ToList();
+        //    entities.Dispose();
+        //    return View(model);
+        //}
+
+
+
     }
 }
