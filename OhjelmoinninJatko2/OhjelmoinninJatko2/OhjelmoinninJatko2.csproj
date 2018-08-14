@@ -277,6 +277,7 @@
     <Content Include="Views\Oma\TunnitVanha.cshtml" />
     <Content Include="Views\Oma\ProjektitVanha2.cshtml" />
     <Content Include="Views\Oma\Projektit.cshtml" />
+    <Content Include="Views\Oma\Henkilot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

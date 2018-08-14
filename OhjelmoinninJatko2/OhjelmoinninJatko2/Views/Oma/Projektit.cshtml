@@ -5,7 +5,7 @@
 @section scripts {
     <script type="text/javascript">
         function päivitäListaus() {
-            $.getJSON("/Oma/getlist", null, function (json) {
+            $.getJSON("/Oma/getlistprojektit", null, function (json) {
                 var projektit = JSON.parse(json);
                 var html = "";
                 for (var i = 0; i < projektit.length; i++) {
@@ -22,7 +22,7 @@
 
                 // tietojen muokkaus
                 $(".glyphicon-pencil").click(function () {
-                    // etsitään asiakkaan tiedot klikatulta riviltä
+                    // etsitään tiedot klikatulta riviltä
                     var ProjektiId = $(this).parent().parent().next().text();
 
                     // haetaan asiakkaan tiedot id:n perusteella
@@ -46,7 +46,7 @@
                     var ok = confirm("Haluatko varmasti poistaa projektin " + ProjektiId + "?");
 
                     if (ok == true) {
-                        $.getJSON("/Oma/delete/" + ProjektiId, null, function (status) {
+                        $.getJSON("/Oma/deleteprojekti/" + ProjektiId, null, function (status) {
                             if (status == true) {
                                 alert("Projekti on poistettu.");
                                 päivitäListaus();
@@ -83,7 +83,7 @@
                     Nimi: $("#projektiModal_Nimi").val()
                 };
 
-                $.post("/oma/update/", details, function (status) {
+                $.post("/oma/updateprojekti/", details, function (status) {
                     if (status == true) {
                         alert("Uudet tiedot tallennettu!");
                         $("#projektiModalDialog").modal("hide");
