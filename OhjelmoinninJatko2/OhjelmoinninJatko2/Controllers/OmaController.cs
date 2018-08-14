@@ -261,5 +261,133 @@ namespace OhjelmoinninJatko2.Controllers
 
 
 
+
+        //*******************************************************************************
+
+        // Henkilot-taulun osuus alkaa
+
+
+        public ActionResult Tunnit()
+        {
+            return View();
+        }
+
+        public JsonResult GetListTunnit()
+        {
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
+
+            var model = (from c in entities.Tunnit
+                         select new
+                         {
+                             TuntiId = c.TuntiId,
+                             Identity = c.Identity,
+                             ProjektiId = c.ProjektiId,
+                             HenkiloId = c.HenkiloId,
+                             Pvm = c.Pvm,
+                             ProjektinTunnit = c.ProjektinTunnit
+                         }).ToList();
+
+            string json = JsonConvert.SerializeObject(model);
+            entities.Dispose();
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSingleTunti(int id)
+        {
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
+
+            var model = (from c in entities.Tunnit
+                         where c.HenkiloId == id
+                         select new
+                         {
+                             TuntiId = c.TuntiId,
+                             Identity = c.Identity,
+                             ProjektiId = c.ProjektiId,
+                             HenkiloId = c.HenkiloId,
+                             Pvm = c.Pvm,
+                             ProjektinTunnit = c.ProjektinTunnit
+                         }).FirstOrDefault();
+
+            string json = JsonConvert.SerializeObject(model);
+            entities.Dispose();
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult UpdateTunti(Tunnit tunn)
+        {
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
+            int id = tunn.TuntiId;
+
+            bool OK = false;
+
+            // onko kyseessä muokkaus vai uuden lisääminen?
+            if (id == 0)
+            {
+                // kyseessä on uuden henkilön lisääminen, kopioidaan kentät
+                Tunnit dbItem = new Tunnit()
+                {
+                    Identity = tunn.Identity,
+                    ProjektiId = tunn.ProjektiId,
+                    HenkiloId = tunn.HenkiloId,
+                    Pvm = tunn.Pvm,
+                    ProjektinTunnit = tunn.ProjektinTunnit
+                };
+
+                // tallennus tietokantaan, Henkilö-Id muodostuu automaattisesti
+                entities.Tunnit.Add(dbItem);
+                entities.SaveChanges();
+                OK = true;
+            }
+
+            else
+            {
+                // muokkaus, haetaan id:n perusteella riviä tietokannasta
+                Tunnit dbItem = (from c in entities.Tunnit
+                                   where c.TuntiId == id
+                                   select c).FirstOrDefault();
+                if (dbItem != null)
+                {
+                    dbItem.Identity = tunn.Identity;
+                    dbItem.ProjektiId = tunn.ProjektiId;
+                    dbItem.HenkiloId = tunn.HenkiloId;
+                    dbItem.Pvm = tunn.Pvm;
+                    dbItem.ProjektinTunnit = tunn.ProjektinTunnit;
+
+                    // tallennus tietokantaan
+                    entities.SaveChanges();
+                    OK = true;
+                }
+            }
+
+            entities.Dispose();
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DeleteTunti(int id)
+        {
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
+
+            bool OK = false;
+
+            Tunnit dbItem = (from c in entities.Tunnit
+                               where c.TuntiId == id
+                               select c).FirstOrDefault();
+
+            if (dbItem != null)
+            {
+                // poisto tietokannasta
+                entities.Tunnit.Remove(dbItem);
+                entities.SaveChanges();
+                OK = true;
+            }
+
+            entities.Dispose();
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
     }
 }
