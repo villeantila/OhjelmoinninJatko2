@@ -161,7 +161,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Henkilot.cs">
-      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OhjelmoinninJatkoAzure.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OhjelmoinninJatkoAzure.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OhjelmoinninJatkoAzure.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OhjelmoinninJatkoAzure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OhjelmoinninJatkoAzure.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OhjelmoinninJatkoAzure.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\OhjelmoinninJatkoModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -179,10 +194,10 @@
       <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Projektit.cs">
-      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoAzure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tunnit.cs">
-      <DependentUpon>OhjelmoinninJatkoModel.tt</DependentUpon>
+      <DependentUpon>OhjelmoinninJatkoAzure.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,6 +210,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\OhjelmoinninJatkoAzure.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OhjelmoinninJatkoAzure.edmx</DependentUpon>
+      <LastGenOutput>OhjelmoinninJatkoAzure.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\OhjelmoinninJatkoAzure.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OhjelmoinninJatkoAzure.edmx</DependentUpon>
+      <LastGenOutput>OhjelmoinninJatkoAzure.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\OhjelmoinninJatkoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
@@ -216,6 +241,13 @@
     </EntityDeploy>
     <Content Include="Models\OhjelmoinninJatkoModel.edmx.diagram">
       <DependentUpon>OhjelmoinninJatkoModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\OhjelmoinninJatkoAzure.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OhjelmoinninJatkoAzure.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OhjelmoinninJatkoAzure.edmx.diagram">
+      <DependentUpon>OhjelmoinninJatkoAzure.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -14,11 +14,20 @@ namespace OhjelmoinninJatko2.Models
     
     public partial class Henkilot
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Henkilot()
+        {
+            this.Tunnit = new HashSet<Tunnit>();
+        }
+    
         public int HenkiloId { get; set; }
         public Nullable<int> Identity { get; set; }
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
         public string Osoite { get; set; }
         public Nullable<int> Esimies { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tunnit> Tunnit { get; set; }
     }
 }

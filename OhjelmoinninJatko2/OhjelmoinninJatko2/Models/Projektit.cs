@@ -14,8 +14,17 @@ namespace OhjelmoinninJatko2.Models
     
     public partial class Projektit
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Projektit()
+        {
+            this.Tunnit = new HashSet<Tunnit>();
+        }
+    
         public int ProjektiId { get; set; }
         public Nullable<int> Identity { get; set; }
         public string Nimi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tunnit> Tunnit { get; set; }
     }
 }

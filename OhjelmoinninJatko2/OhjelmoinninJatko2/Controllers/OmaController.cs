@@ -10,35 +10,7 @@ namespace OhjelmoinninJatko2.Controllers
 {
     public class OmaController : Controller
     {
-        // GET: Oma
-        //public ActionResult ProjektitVanha()
-        //{
-        //    //ViewBag.TestiTieto = "Testiä";
-        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-        //    List<Projektit> model = entities.Projektit.ToList();
-        //    entities.Dispose();
-        //    return View(model);
-        //}
-        //public ActionResult HenkilotVanha()
-        //{
-        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-        //    List<Henkilot> model = entities.Henkilot.ToList();
-        //    entities.Dispose();
-        //    return View(model);
-        //}
-        //public ActionResult TunnitVanha()
-        //{
-        //    OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
-        //    List<Tunnit> model = entities.Tunnit.ToList();
-        //    entities.Dispose();
-        //    return View(model);
-        //}
-
-        //public ActionResult ProjektitVanha2()
-        //{
-        //   return View();
-        //}
-
+       
         public ActionResult Projektit()
         {
             return View();
@@ -46,7 +18,7 @@ namespace OhjelmoinninJatko2.Controllers
 
         public JsonResult GetList()
         {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
             
             var model = (from c in entities.Projektit
                          select new
@@ -62,9 +34,9 @@ namespace OhjelmoinninJatko2.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetSingleProjekti(int id) //vai pitääkö olla string??
+        public JsonResult GetSingleProjekti(int id)
         {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
            
             var model = (from c in entities.Projektit
                          where c.ProjektiId == id
@@ -83,7 +55,7 @@ namespace OhjelmoinninJatko2.Controllers
 
         public ActionResult Update(Projektit proj)
         {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
             int id = proj.ProjektiId;
 
             bool OK = false;
@@ -128,7 +100,7 @@ namespace OhjelmoinninJatko2.Controllers
         
         public ActionResult Delete(int id)
         {
-            OhjelmoinninJatkoEntities2 entities = new OhjelmoinninJatkoEntities2();
+            OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
 
             bool OK = false;
 

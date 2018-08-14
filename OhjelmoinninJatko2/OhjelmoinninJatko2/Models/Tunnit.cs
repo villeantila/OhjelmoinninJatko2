@@ -19,6 +19,9 @@ namespace OhjelmoinninJatko2.Models
         public Nullable<int> ProjektiId { get; set; }
         public Nullable<int> HenkiloId { get; set; }
         public Nullable<System.DateTime> Pvm { get; set; }
-        public Nullable<decimal> Tunnit1 { get; set; }
+        public Nullable<decimal> ProjektinTunnit { get; set; }
+    
+        public virtual Henkilot Henkilot { get; set; }
+        public virtual Projektit Projektit { get; set; }
     }
 }
