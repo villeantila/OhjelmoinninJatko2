@@ -33,12 +33,44 @@
           <Property Name="ProjektiId" Type="int" />
           <Property Name="HenkiloId" Type="int" />
           <Property Name="Pvm" Type="datetime" />
-          <Property Name="Tunnit" Type="numeric" Precision="15" Scale="7" />
+          <Property Name="ProjektinTunnit" Type="numeric" Precision="15" Scale="7" />
         </EntityType>
+        <Association Name="Fk_Tunnit_Henkilot">
+          <End Role="Henkilot" Type="Self.Henkilot" Multiplicity="0..1" />
+          <End Role="Tunnit" Type="Self.Tunnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilot">
+              <PropertyRef Name="HenkiloId" />
+            </Principal>
+            <Dependent Role="Tunnit">
+              <PropertyRef Name="HenkiloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Tunnit_Projektit">
+          <End Role="Projektit" Type="Self.Projektit" Multiplicity="0..1" />
+          <End Role="Tunnit" Type="Self.Tunnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projektit">
+              <PropertyRef Name="ProjektiId" />
+            </Principal>
+            <Dependent Role="Tunnit">
+              <PropertyRef Name="ProjektiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OhjelmoinninJatkoModelStoreContainer">
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_Tunnit_Henkilot" Association="Self.Fk_Tunnit_Henkilot">
+            <End Role="Henkilot" EntitySet="Henkilot" />
+            <End Role="Tunnit" EntitySet="Tunnit" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Tunnit_Projektit" Association="Self.Fk_Tunnit_Projektit">
+            <End Role="Projektit" EntitySet="Projektit" />
+            <End Role="Tunnit" EntitySet="Tunnit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -55,6 +87,7 @@
           <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Osoite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Esimies" Type="Int32" />
+          <NavigationProperty Name="Tunnit" Relationship="Self.Fk_Tunnit_Henkilot" FromRole="Henkilot" ToRole="Tunnit" />
         </EntityType>
         <EntityType Name="Projektit">
           <Key>
@@ -63,6 +96,7 @@
           <Property Name="ProjektiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Identity" Type="Int32" />
           <Property Name="Nimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tunnit" Relationship="Self.Fk_Tunnit_Projektit" FromRole="Projektit" ToRole="Tunnit" />
         </EntityType>
         <EntityType Name="Tunnit">
           <Key>
@@ -73,19 +107,53 @@
           <Property Name="ProjektiId" Type="Int32" />
           <Property Name="HenkiloId" Type="Int32" />
           <Property Name="Pvm" Type="DateTime" Precision="3" />
-          <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" />
+          <Property Name="ProjektinTunnit" Type="Decimal" Precision="15" Scale="7" />
+          <NavigationProperty Name="Henkilot" Relationship="Self.Fk_Tunnit_Henkilot" FromRole="Tunnit" ToRole="Henkilot" />
+          <NavigationProperty Name="Projektit" Relationship="Self.Fk_Tunnit_Projektit" FromRole="Tunnit" ToRole="Projektit" />
         </EntityType>
-        <EntityContainer Name="OhjelmoinninJatkoEntities2" annotation:LazyLoadingEnabled="true">
+        <Association Name="Fk_Tunnit_Henkilot">
+          <End Role="Henkilot" Type="Self.Henkilot" Multiplicity="0..1" />
+          <End Role="Tunnit" Type="Self.Tunnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilot">
+              <PropertyRef Name="HenkiloId" />
+            </Principal>
+            <Dependent Role="Tunnit">
+              <PropertyRef Name="HenkiloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Tunnit_Projektit">
+          <End Role="Projektit" Type="Self.Projektit" Multiplicity="0..1" />
+          <End Role="Tunnit" Type="Self.Tunnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projektit">
+              <PropertyRef Name="ProjektiId" />
+            </Principal>
+            <Dependent Role="Tunnit">
+              <PropertyRef Name="ProjektiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OhjelmoinninJatkoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" />
+          <AssociationSet Name="Fk_Tunnit_Henkilot" Association="Self.Fk_Tunnit_Henkilot">
+            <End Role="Henkilot" EntitySet="Henkilot" />
+            <End Role="Tunnit" EntitySet="Tunnit" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Tunnit_Projektit" Association="Self.Fk_Tunnit_Projektit">
+            <End Role="Projektit" EntitySet="Projektit" />
+            <End Role="Tunnit" EntitySet="Tunnit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OhjelmoinninJatkoModelStoreContainer" CdmEntityContainer="OhjelmoinninJatkoEntities2">
+        <EntityContainerMapping StorageEntityContainer="OhjelmoinninJatkoModelStoreContainer" CdmEntityContainer="OhjelmoinninJatkoEntities">
           <EntitySetMapping Name="Henkilot">
             <EntityTypeMapping TypeName="OhjelmoinninJatkoModel.Henkilot">
               <MappingFragment StoreEntitySet="Henkilot">
@@ -115,7 +183,7 @@
                 <ScalarProperty Name="ProjektiId" ColumnName="ProjektiId" />
                 <ScalarProperty Name="HenkiloId" ColumnName="HenkiloId" />
                 <ScalarProperty Name="Pvm" ColumnName="Pvm" />
-                <ScalarProperty Name="Tunnit1" ColumnName="Tunnit" />
+                <ScalarProperty Name="ProjektinTunnit" ColumnName="ProjektinTunnit" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b9a280bcd2dc4ada933102b7641a85a8" Name="Diagram1">
-        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Henkilot" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Projektit" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Tunnit" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="4a5392ade8b44d668fa151d4eb9433d3" Name="Diagram1">
+        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Henkilot" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Projektit" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OhjelmoinninJatkoModel.Tunnit" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="OhjelmoinninJatkoModel.Fk_Tunnit_Henkilot" ManuallyRouted="false" />
+        <AssociationConnector Association="OhjelmoinninJatkoModel.Fk_Tunnit_Projektit" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

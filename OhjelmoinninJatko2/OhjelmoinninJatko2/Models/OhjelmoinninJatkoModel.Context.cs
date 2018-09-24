@@ -13,10 +13,10 @@ namespace OhjelmoinninJatko2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OhjelmoinninJatkoEntities2 : DbContext
+    public partial class OhjelmoinninJatkoEntities : DbContext
     {
-        public OhjelmoinninJatkoEntities2()
-            : base("name=OhjelmoinninJatkoEntities2")
+        public OhjelmoinninJatkoEntities()
+            : base("name=OhjelmoinninJatkoEntities")
         {
         }
     

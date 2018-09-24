@@ -336,7 +336,7 @@ namespace OhjelmoinninJatko2.Controllers
                     ProjektinTunnit = tunn.ProjektinTunnit
                 };
 
-                // tallennus tietokantaan, Henkilö-Id muodostuu automaattisesti
+                // tallennus tietokantaan, Tunti-Id muodostuu automaattisesti
                 entities.Tunnit.Add(dbItem);
                 entities.SaveChanges();
                 OK = true;
