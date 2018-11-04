@@ -26,8 +26,10 @@
                     var ProjektiId = $(this).parent().parent().next().text();
 
                     // haetaan asiakkaan tiedot id:n perusteella
-                    $.getJSON("/Oma/getsingleprojekti/" + ProjektiId, null, function (json2) {
+                    $.getJSON("/Oma/GetSingleProjekti/" + ProjektiId, null, function (json2) {
+                        //console.log(json2);
                         var projekti = JSON.parse(json2);
+                        //console.log(projekti);
 
                         // kopioidaan tiedot ikkunaan
                         $("#projektiModal_ProjektiId").val(projekti.ProjektiId);
@@ -48,7 +50,7 @@
                     if (ok == true) {
                         $.getJSON("/Oma/deleteprojekti/" + ProjektiId, null, function (status) {
                             if (status == true) {
-                                alert("Projekti on poistettu.");
+                                //alert("Projekti on poistettu.");
                                 päivitäListaus();
                             }
                             else {
@@ -85,7 +87,7 @@
 
                 $.post("/oma/updateprojekti/", details, function (status) {
                     if (status == true) {
-                        alert("Uudet tiedot tallennettu!");
+                        //alert("Uudet tiedot tallennettu!");
                         $("#projektiModalDialog").modal("hide");
                         päivitäListaus();
                     }

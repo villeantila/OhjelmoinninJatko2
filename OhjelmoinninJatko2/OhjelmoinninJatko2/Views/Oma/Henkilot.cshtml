@@ -54,7 +54,7 @@
                     if (ok == true) {
                         $.getJSON("/Oma/deletehenkilo/" + henkiloId, null, function (status) {
                             if (status == true) {
-                                alert("Henkilö on poistettu.");
+                                //alert("Henkilö on poistettu.");
                                 päivitäListaus();
                             }
                             else {
@@ -97,7 +97,7 @@
 
                 $.post("/oma/updatehenkilo/", details, function (status) {
                     if (status == true) {
-                        alert("Uudet tiedot tallennettu!");
+                        //alert("Uudet tiedot tallennettu!");
                         $("#henkiloModalDialog").modal("hide");
                         päivitäListaus();
                     }

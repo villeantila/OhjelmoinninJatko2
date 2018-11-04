@@ -37,7 +37,7 @@ namespace OhjelmoinninJatko2.Controllers
         public JsonResult GetSingleProjekti(int id)
         {
             OhjelmoinninJatkoEntities entities = new OhjelmoinninJatkoEntities();
-           
+
             var model = (from c in entities.Projektit
                          where c.ProjektiId == id
                          select new
@@ -52,6 +52,7 @@ namespace OhjelmoinninJatko2.Controllers
 
             return Json(json, JsonRequestBehavior.AllowGet);
         }
+
 
         public ActionResult UpdateProjekti(Projektit proj)
         {
@@ -249,6 +250,9 @@ namespace OhjelmoinninJatko2.Controllers
 
             return Json(OK, JsonRequestBehavior.AllowGet);
         }
+
+
+
 
 
         //public ActionResult henkilotvanha()

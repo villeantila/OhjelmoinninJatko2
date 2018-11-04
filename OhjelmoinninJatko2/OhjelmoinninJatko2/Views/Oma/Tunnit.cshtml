@@ -10,7 +10,7 @@
                 var html = "";
                 for (var i = 0; i < tunnit.length; i++) {
                     html += "<tr>" +
-                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-pencil' data-id='"+ tunnit[i].TuntiId +"'></span></a></td>" +
                         "<td>" + tunnit[i].TuntiId + "</td>" +
                         "<td>" + tunnit[i].Identity + "</td>" +
                         "<td>" + tunnit[i].ProjektiId + "</td>" +
@@ -26,7 +26,8 @@
                 // tietojen muokkaus
                 $(".glyphicon-pencil").click(function () {
                     // etsitään tiedot klikatulta riviltä
-                    var tuntiId = $(this).parent().parent().next().text();
+                    //var tuntiId = $(this).parent().parent().next().text();
+                    var tuntiId = $(this).data("id");
 
                     // haetaan tiedot id:n perusteella
                     $.getJSON("/Oma/getsingletunti/" + tuntiId, null, function (json2) {
@@ -54,7 +55,7 @@
                     if (ok == true) {
                         $.getJSON("/Oma/deletetunti/" + tuntiId, null, function (status) {
                             if (status == true) {
-                                alert("Tunnit on poistettu.");
+                                //alert("Tunnit on poistettu.");
                                 päivitäListaus();
                             }
                             else {
@@ -66,9 +67,38 @@
             });
         }
 
+        function haeProjektit() {
+            $.getJSON("/Oma/getlistprojektit", null, function (json) {
+                var projektit = JSON.parse(json);
+                console.log(projektit);
+                var apu = "<option value=''>-- Valitse projekti --</option>";
+                for (var i = 0; i < projektit.length; i++) {
+                    apu += "<option value='" + projektit[i].ProjektiId + "'>" + projektit[i].ProjektiId + "</option>"
+                }
+                $("#tuntiModal_ProjektiId").html(apu);
+            })
+        };
+
+        function haeHenkilot() {
+            $.getJSON("/Oma/getlisthenkilot", null, function (json) {
+                var henkilot = JSON.parse(json);
+                console.log(henkilot);
+                var apu = "<option value=''>-- Valitse henkilö --</option>";
+                for (var i = 0; i < henkilot.length; i++) {
+                    apu += "<option value='" + henkilot[i].HenkiloId + "'>" + henkilot[i].HenkiloId + "</option>"
+                }
+                $("#tuntiModal_HenkiloId").html(apu);
+            })
+        };
+
+
+
+
         // sivun alustaminen
         $(function () {
             päivitäListaus();
+            haeProjektit();
+            haeHenkilot();
 
             $("#addNewtuntiButton").click(function () {
 
@@ -79,7 +109,9 @@
                 $("#tuntiModal_HenkiloId").val("");
                 $("#tuntiModal_Pvm").val("");
                 $("#tuntiModal_ProjektinTunnit").val("");
-                
+
+                console.log('ööööööö')
+
                 $("#tuntiModalTitle").text("Lisää uusi tunti");
                 $("#tuntiModalDialog").modal("show");
             });
@@ -97,7 +129,7 @@
 
                 $.post("/oma/updatetunti/", details, function (status) {
                     if (status == true) {
-                        alert("Uudet tiedot tallennettu!");
+                        //alert("Uudet tiedot tallennettu!");
                         $("#tuntiModalDialog").modal("hide");
                         päivitäListaus();
                     }
@@ -148,21 +180,27 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">ProjektiId</div>
-                    <div class="col-md-6"><input class="form-control" id="tuntiModal_ProjektiId" type="text"></div>
+                    <div class="col-md-6">
+                        <select class="form-control" name="projektiId" id="tuntiModal_ProjektiId" required>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">HenkiloId</div>
-                    <div class="col-md-6"><input class="form-control" id="tuntiModal_HenkiloId" type="text"></div>
+                    <div class="col-md-6">
+
+                        <select class="form-control" name="projektiId" id="tuntiModal_HenkiloId" required></select>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Pvm</div>
+                        <div class="col-md-6"><input class="form-control" id="tuntiModal_Pvm" type="text"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">ProjektinTunnit</div>
+                        <div class="col-md-6"><input class="form-control" id="tuntiModal_ProjektinTunnit" type="text"></div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">Pvm</div>
-                    <div class="col-md-6"><input class="form-control" id="tuntiModal_Pvm" type="text"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">ProjektinTunnit</div>
-                    <div class="col-md-6"><input class="form-control" id="tuntiModal_ProjektinTunnit" type="text"></div>
-                </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
                 <button type="button" class="btn btn-primary" id="tuntiModalSaveButton">Tallenna</button>
